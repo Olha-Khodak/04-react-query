@@ -48,6 +48,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
           alt={movie.title}
           className={css.image}
+          loading="lazy"
         />
         <div className={css.content}>
           <h2>{movie.title}</h2>

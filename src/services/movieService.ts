@@ -1,15 +1,10 @@
 import axios from "axios";
-import type { Movie } from "../types/movie";
+import type { ApiMovieResponse } from "../types/movie";
 
 const token = import.meta.env.VITE_TMDB_TOKEN as string;
 
 if (!token) {
   throw new Error("VITE_TMDB_TOKEN is not defined. Add it to your .env file.");
-}
-
-interface ApiMovieResponse {
-  page: number;
-  results: Movie[];
 }
 
 const instance = axios.create({
@@ -23,7 +18,7 @@ const instance = axios.create({
 export default async function fetchMovie(
   query: string,
   page = 1
-): Promise<Movie[]> {
+): Promise<ApiMovieResponse> {
   const response = await instance.get<ApiMovieResponse>("/search/movie", {
     params: {
       query,
@@ -33,5 +28,5 @@ export default async function fetchMovie(
     },
   });
 
-  return response.data.results;
+  return response.data;
 }
